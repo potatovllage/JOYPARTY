@@ -9,6 +9,7 @@ const QR = () => {
     axios
       .get("http://54.180.115.105:8000/code")
       .then((res) => {
+        console.log(res.data);
         setCode(res.data);
       })
       .catch((err) => {
