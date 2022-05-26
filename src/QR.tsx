@@ -1,13 +1,26 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import QRcode from "qrcode.react";
+import axios from "axios";
 
 const QR = () => {
+  const [code, setCode] = useState<any>();
+  useEffect(() => {
+    axios
+      .get("http://54.180.115.105:8000/code")
+      .then((res) => {
+        setCode(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Wrapper>
       <Header>체육대회 관전 바코드</Header>
       <Box>
-        <QRcode size={280} id="myqr" value="e" />
+        <QRcode size={280} id="myqr" value={code} />
       </Box>
       <Bottom>캡쳐를 꼭 해주세요!!!</Bottom>
     </Wrapper>
